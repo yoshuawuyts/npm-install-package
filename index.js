@@ -5,13 +5,13 @@ const noop = require('noop2')
 module.exports = npmInstallPackage
 
 // Install an npm package
-// ([str], obj, obj, fn) -> null
+// ([str]|str, obj, obj, fn) -> null
 function npmInstallPackage (deps, opts, cb) {
   if (!cb) {
     cb = opts
     opts = {}
   }
-  Array.isArray(deps) ? deps : [ deps ]
+  deps = Array.isArray(deps) ? deps : [ deps ]
   opts = opts || opts
   cb = cb || noop
 

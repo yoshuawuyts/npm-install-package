@@ -16,6 +16,15 @@ $ npm install npm-install-package
 ```js
 const npmInstallPackage = require('npm-install-package')
 
+npmInstallPackage('cliclopts', opts, err => {
+  if (err) throw err
+})
+```
+
+With multiple installs, offline-first fetching and saving to dev dependencies:
+```js
+const npmInstallPackage = require('npm-install-package')
+
 const devDeps = [ 'map-limit', 'minimist', 'cliclopts' ]
 const opts = { saveDev: true, cache: true }
 npmInstallPackage(devDeps, opts, err => {
