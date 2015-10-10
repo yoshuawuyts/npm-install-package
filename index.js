@@ -1,5 +1,4 @@
 const exec = require('child_process').exec
-const mapLimit = require('map-limit')
 const noop = require('noop2')
 
 module.exports = npmInstallPackage
@@ -20,14 +19,13 @@ function npmInstallPackage (deps, opts, cb) {
   if (opts.saveDev) args.push('-D')
   if (opts.cache) args.push('--cache-min Infinity')
 
-  mapLimit(deps, Infinity, iterator, cb)
-
-  function iterator (dep, done) {
+  deps.forEach(function (dep) {
     process.stdout.write('pkg: ' + dep + '\n')
-    const cliArgs = ['npm i'].concat(args, dep).join(' ')
-    exec(cliArgs, function (err, name) {
-      if (err) return done(err)
-      done()
-    })
-  }
+  })
+
+  const cliArgs = ['npm i'].concat(args, deps).join(' ')
+  exec(cliArgs, function (err, name) {
+    if (err) return cb(err)
+    cb()
+  })
 }

@@ -20,7 +20,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "map-limit": "0.0.1",
     "noop2": "^2.0.0"
   },
   "devDependencies": {
