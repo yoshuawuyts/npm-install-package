@@ -37,8 +37,8 @@ npmInstallPackage(devDeps, opts, err => {
 Install an array of dependencies. Opts can contain the following values:
 - __save__: save a value to `dependencies`. Defaults to `false`
 - __saveDev__: save a value to `devDependencies`. Defaults to `false`
-- __cache__: attempt to get packages from the local cache first. Defaults to
-  `false`
+- __cache__: attempt to get packages from the local cache first. Defaults to `false`
+- __silent__: install packages silently without writing to stdout. Defaults to `false`
 
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)
