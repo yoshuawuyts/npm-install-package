@@ -19,9 +19,11 @@ function npmInstallPackage (deps, opts, cb) {
   if (opts.saveDev) args.push('-D')
   if (opts.cache) args.push('--cache-min Infinity')
 
-  deps.forEach(function (dep) {
-    process.stdout.write('pkg: ' + dep + '\n')
-  })
+  if (!opts.silent) {
+    deps.forEach(function (dep) {
+      process.stdout.write('pkg: ' + dep + '\n')
+    })
+  }
 
   const cliArgs = ['npm i'].concat(args, deps).join(' ')
   exec(cliArgs, function (err, name) {
