@@ -19,9 +19,6 @@
     "exec"
   ],
   "license": "MIT",
-  "dependencies": {
-    "noop2": "^2.0.0"
-  },
   "devDependencies": {
     "JSONStream": "^1.0.6",
     "base-package-json": "^1.0.2",

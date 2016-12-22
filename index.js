@@ -1,5 +1,4 @@
 var exec = require('child_process').exec
-var noop = require('noop2')
 
 module.exports = npmInstallPackage
 
@@ -32,3 +31,5 @@ function npmInstallPackage (deps, opts, cb) {
     cb()
   })
 }
+
+function noop () {}
