@@ -14,26 +14,27 @@ $ npm install npm-install-package
 
 ## Usage
 ```js
-const npmInstallPackage = require('npm-install-package')
+var install = require('npm-install-package')
 
-npmInstallPackage('cliclopts', opts, err => {
+install('minimist', function (err) {
   if (err) throw err
 })
 ```
 
 With multiple installs, offline-first fetching and saving to dev dependencies:
 ```js
-const npmInstallPackage = require('npm-install-package')
+var install = require('npm-install-package')
 
-const devDeps = [ 'map-limit', 'minimist', 'cliclopts' ]
-const opts = { saveDev: true, cache: true }
-npmInstallPackage(devDeps, opts, err => {
+var devDeps = [ 'map-limit', 'minimist', 'cliclopts' ]
+var opts = { saveDev: true, cache: true }
+
+install(devDeps, opts, function (err) {
   if (err) throw err
 })
 ```
 
 ## API
-### npmInstallPackage(dependencies, options, cb)
+### install(dependencies, options, cb)
 Install an array of dependencies. Opts can contain the following values:
 - __save__: save a value to `dependencies`. Defaults to `false`
 - __saveDev__: save a value to `devDependencies`. Defaults to `false`

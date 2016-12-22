@@ -1,22 +1,22 @@
-const pkg = require('base-package-json')
-const concat = require('concat-stream')
-const mapLimit = require('map-limit')
-const readdirp = require('readdirp')
-const json = require('JSONStream')
-const mkdirp = require('mkdirp')
-const rimraf = require('rimraf')
-const pump = require('pump')
-const path = require('path')
-const test = require('tape')
-const fs = require('fs')
+var pkg = require('base-package-json')
+var concat = require('concat-stream')
+var mapLimit = require('map-limit')
+var readdirp = require('readdirp')
+var json = require('JSONStream')
+var mkdirp = require('mkdirp')
+var rimraf = require('rimraf')
+var pump = require('pump')
+var path = require('path')
+var test = require('tape')
+var fs = require('fs')
 
-const install = require('./')
+var install = require('./')
 
 test('should install dependencies', function (t) {
   t.plan(5)
-  const dir = 'tmp'
+  var dir = 'tmp'
 
-  const fns = [ mkdir, createPkg, installDeps, readDirs, clean ]
+  var fns = [ mkdir, createPkg, installDeps, readDirs, clean ]
   mapLimit(fns, 1, function (fn, cb) { fn(cb) }, function (err) {
     t.error(err, 'no err')
   })
@@ -30,28 +30,28 @@ test('should install dependencies', function (t) {
   }
 
   function createPkg (next) {
-    const rs = pkg()
-    const ts = json.stringify()
-    const ws = fs.createWriteStream(path.join(process.cwd(), 'package.json'))
+    var rs = pkg()
+    var ts = json.stringify()
+    var ws = fs.createWriteStream(path.join(process.cwd(), 'package.json'))
     pump(rs, ts, ws, next)
   }
 
   function installDeps (next) {
-    const devDeps = [ 'map-limit', 'minimist' ]
-    const opts = { saveDev: true, cache: true }
+    var devDeps = [ 'map-limit', 'minimist' ]
+    var opts = { saveDev: true, cache: true }
     install(devDeps, opts, next)
   }
 
   function readDirs (next) {
-    const opts = {
+    var opts = {
       rootDir: path.join(dir, 'node_modules'),
       entryType: 'directories',
       depth: 1
     }
-    const rs = readdirp(opts)
-    const ws = concat({ object: true }, function (arr) {
+    var rs = readdirp(opts)
+    var ws = concat({ object: true }, function (arr) {
       t.ok(Array.isArray(arr), 'is array')
-      const paths = arr.map(function (el) { return el.path })
+      var paths = arr.map(function (el) { return el.path })
       t.notEqual(paths.indexOf('node_modules'), -1)
       t.notEqual(paths.indexOf('node_modules/minimist'), -1)
       t.notEqual(paths.indexOf('node_modules/map-limit'), -1)
@@ -68,9 +68,9 @@ test('should install dependencies', function (t) {
 
 test('should install a single dependency', function (t) {
   t.plan(4)
-  const dir = 'tmp'
+  var dir = 'tmp'
 
-  const fns = [ mkdir, createPkg, installDeps, readDirs, clean ]
+  var fns = [ mkdir, createPkg, installDeps, readDirs, clean ]
   mapLimit(fns, 1, function (fn, cb) { fn(cb) }, function (err) {
     t.error(err, 'no err')
   })
@@ -84,28 +84,28 @@ test('should install a single dependency', function (t) {
   }
 
   function createPkg (next) {
-    const rs = pkg()
-    const ts = json.stringify()
-    const ws = fs.createWriteStream(path.join(process.cwd(), 'package.json'))
+    var rs = pkg()
+    var ts = json.stringify()
+    var ws = fs.createWriteStream(path.join(process.cwd(), 'package.json'))
     pump(rs, ts, ws, next)
   }
 
   function installDeps (next) {
-    const deps = 'map-limit'
-    const opts = { save: true, cache: true }
+    var deps = 'map-limit'
+    var opts = { save: true, cache: true }
     install(deps, opts, next)
   }
 
   function readDirs (next) {
-    const opts = {
+    var opts = {
       rootDir: path.join(dir, 'node_modules'),
       entryType: 'directories',
       depth: 1
     }
-    const rs = readdirp(opts)
-    const ws = concat({ object: true }, function (arr) {
+    var rs = readdirp(opts)
+    var ws = concat({ object: true }, function (arr) {
       t.ok(Array.isArray(arr), 'is array')
-      const paths = arr.map(function (el) { return el.path })
+      var paths = arr.map(function (el) { return el.path })
       t.notEqual(paths.indexOf('node_modules'), -1)
       t.notEqual(paths.indexOf('node_modules/map-limit'), -1)
       next()

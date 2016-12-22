@@ -1,5 +1,5 @@
-const exec = require('child_process').exec
-const noop = require('noop2')
+var exec = require('child_process').exec
+var noop = require('noop2')
 
 module.exports = npmInstallPackage
 
@@ -14,18 +14,19 @@ function npmInstallPackage (deps, opts, cb) {
   opts = opts || opts
   cb = cb || noop
 
-  const args = []
+  var args = []
   if (opts.save) args.push('-S')
   if (opts.saveDev) args.push('-D')
+  if (opts.global) args.push('-g')
   if (opts.cache) args.push('--cache-min Infinity')
 
-  if (!opts.silent) {
+  if (opts.silent === false) {
     deps.forEach(function (dep) {
       process.stdout.write('pkg: ' + dep + '\n')
     })
   }
 
-  const cliArgs = ['npm i'].concat(args, deps).join(' ')
+  var cliArgs = ['npm i'].concat(args, deps).join(' ')
   exec(cliArgs, function (err, name) {
     if (err) return cb(err)
     cb()
