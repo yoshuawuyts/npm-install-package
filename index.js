@@ -16,6 +16,10 @@ function npmInstallPackage (deps, opts, cb) {
   var args = []
   if (opts.save) args.push('-S')
   if (opts.saveDev) args.push('-D')
+  if (opts.saveEx) args.push('-E')
+  if (opts.saveBun) args.push('-B')
+  if (opts.saveOpt) args.push('-O')
+
   if (opts.global) args.push('-g')
   if (opts.cache) args.push('--cache-min Infinity')
 

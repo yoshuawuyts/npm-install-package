@@ -33,11 +33,26 @@ install(devDeps, opts, function (err) {
 })
 ```
 
+You can also supply the version, but if no version is supplied, then the latest version of the package will be installed:
+```js
+var install = require('npm-install-package')
+
+var deps = [ 'chalk@2.1.0', 'minimist@0.2.0', 'cliclopts' ]
+var opts = { save: true }
+
+install(deps, opts, function (err) {
+  if (err) throw err
+})
+```
+
 ## API
 ### install(dependencies, options, cb)
 Install an array of dependencies. Opts can contain the following values:
 - __save__: save a value to `dependencies`. Defaults to `false`
 - __saveDev__: save a value to `devDependencies`. Defaults to `false`
+- __saveEx__: save a value to `dependencies` with an exact version. Defaults to `false`
+- __saveBun__: save a value to `bundleDependencies`. Defaults to `false`
+- __saveOpt__: save a value to `optionalDependencies`. Defaults to `false`
 - __cache__: attempt to get packages from the local cache first. Defaults to `false`
 - __silent__: install packages silently without writing to stdout. Defaults to `false`
 
